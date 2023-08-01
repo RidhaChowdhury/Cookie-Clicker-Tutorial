@@ -1,0 +1,108 @@
+<html>  
+    <head>
+        <title>Cookie Clicker</title>
+        <style>
+            body, h1, button, p {
+                margin: 0px;
+                font-family: 'Arial', sans-serif;
+            }
+
+            body {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                background-color: #edb064;
+            }
+
+            div {
+                text-align: center;
+                padding: 10px;
+                background-color: teal;
+                border-radius: 15px;
+                color: white;
+                max-width: 90%;
+            }
+
+            button {
+                cursor: pointer;
+                background-color: transparent;
+                border: none;
+                transition: transform 0.3s ease;
+            }
+
+            #cookieButton {
+                font-size: 6em;
+            }
+
+            #cookieCount, #autoClickerCost, #autoClickerCount {
+                font-size: 1.5em;
+            }
+
+            #autoClickerButton {
+                padding: 10px;
+                background-color: orange;
+                border-radius: 5px;
+                color: white;
+                font-size: 1em;
+            }
+        </style>
+    </head>
+  <body>
+    <div>
+      <h1>Cookie Clicker</h1>
+      <button id = 'cookieButton'>🍪</button>
+      <p id = 'cookieCount'>0</p>
+      <button id = 'autoClickerButton'>🤖</button>
+      <p>10🍪</p>
+      <p id = 'autoClickerCount'>0 🍪/S</p>
+    </div>
+    <script>
+        function bounce(element) {
+            element.style.transform = 'scale(0.8)';
+            setTimeout(() => element.style.transform = 'scale(1)', 100);
+        }
+
+        function update() {
+            cookieCount.innerText = cookies;
+            autoClickerCount.innerText = autoClickers + " 🍪/S";
+        }
+
+        let cookies = 0;
+            const cookieButton = document.getElementById('cookieButton');
+            const cookieCount = document.getElementById('cookieCount');
+
+        function cookie() {
+            cookies++;
+            update();
+            bounce(cookieButton);
+        }
+
+        cookieButton.addEventListener('click', cookie);
+
+        let autoClickers = 0;
+        const autoClickerButton = document.getElementById('autoClickerButton');
+        const autoClickerCount = document.getElementById('autoClickerCount');
+
+        function buyAutoClicker() {
+            if(cookies >= 10) {
+                cookies -= 10;
+                autoClickers++;
+                update();
+                bounce(autoClickerButton);
+            }
+        }
+
+        autoClickerButton.addEventListener('click', buyAutoClicker);
+
+        function autoClick() {
+            if(autoClickers > 0) {
+                cookies += autoClickers;
+                update();
+                bounce(autoClickerButton);
+            }
+        }
+
+        setInterval(autoClick, 1000);
+    </script>
+  </body>
+</html>
